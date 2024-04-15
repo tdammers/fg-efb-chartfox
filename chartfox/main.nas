@@ -122,7 +122,7 @@ var ChartfoxApp = {
             self.showErrorScreen(
                 [ "Authentication failure:"
                 , r.reason
-                , "Make sure the FG EFB companion is running on port 7576."
+                , "Make sure the FG EFB companion is running on " ~ self.companionURL
                 , "See fgfs.log for details."
                 ]);
         });

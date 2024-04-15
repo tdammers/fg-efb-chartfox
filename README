@@ -1,0 +1,43 @@
+ChartFox Login App for FG-EFB
+=============================
+
+This is an app for the FlightGear EFB that adds ChartFox login functionality.
+
+It is provided separately from the main EFB code and any aircraft models in
+order to avoid licensing conflicts between the proprietary ChartFox branding
+and the Free Software licenses under which most FG aircraft are released.
+
+Installing
+----------
+
+Copy the `chartfox` subdirectory into `Export/efbapps/chartfox` below your FG
+home directory. On Unix-like systems, this should be
+`~/.fgfs/Export/efbapps/chartfox`. For Linux users, the provided installer
+script (`install.sh`) will create the necessary directories and copy the files
+for you.
+
+Requirements
+------------
+
+In order to use this software, you will need:
+
+- A FlightGear aircraft that includes fg-efb (such as the E-Jet family).
+- [`fg-efb-server`](https://github.com/tdammers/fg-efb-server/) running locally
+  and configured for fg-efb
+- A VATSIM account (required for logging into ChartFox).
+- Phi (included in FlightGear) on port 10000 (start FlightGear with the
+  option `--httpd=10000`)
+
+Usage
+-----
+
+Load up an aircraft that includes fg-efb (such as the E-Jet family).
+
+Make sure fg-efb-server is running.
+
+In the EFB, open the Chartfox app and click the blue "Log In" button. A VATSIM
+login prompt may show up in your web browser; if so, confirm to log into
+Chartfox.
+
+After a successful login, you can access Chartfox charts via the Charts app in
+the EFB.
