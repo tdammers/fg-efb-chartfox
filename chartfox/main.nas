@@ -122,6 +122,7 @@ var ChartfoxApp = {
             self.showErrorScreen(
                 [ "Authentication failure:"
                 , r.reason
+                , "Make sure the FG EFB companion is running on port 7576."
                 , "See fgfs.log for details."
                 ]);
         });
@@ -281,8 +282,10 @@ var ChartfoxApp = {
                             "OK",
                             128, 500, 256);
         okButton.setHandler(func {
-            me.showHome();
+            self.showHome();
         });
+        me.rootWidget.appendChild(okButton);
+        me.showBaseScreen();
     },
 
     showBaseScreen: func () {
@@ -406,6 +409,7 @@ var ChartfoxApp = {
 
         me.contentGroup.removeAllChildren();
         me.rootWidget.removeAllChildren();
+        me.showBaseScreen();
 
         var statusText = status;
         if (status == AUTH_OK) { statusText = "Logged in"; }
