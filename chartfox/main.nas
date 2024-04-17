@@ -281,7 +281,7 @@ var ChartfoxApp = {
                             me.contentGroup,
                             "OK",
                             128, 500, 256);
-        okButton.setHandler(func {
+        okButton.setClickHandler(func {
             self.showHome();
         });
         me.rootWidget.appendChild(okButton);
@@ -320,7 +320,7 @@ var ChartfoxApp = {
                             me.contentGroup,
                             "Log In",
                             128, 220, 256);
-        loginButton.setHandler(func {
+        loginButton.setClickHandler(func {
             self.authorize();
         });
 
@@ -372,7 +372,7 @@ var ChartfoxApp = {
                             me.contentGroup,
                             "Log Out",
                             128, 220, 256);
-        logoutButton.setHandler(func {
+        logoutButton.setClickHandler(func {
             self.logout();
         });
 
