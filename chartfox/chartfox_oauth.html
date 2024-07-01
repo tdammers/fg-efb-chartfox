@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Chartfox OAuth Response</title>
+    </head>
+
+    <body>
+        <h1>Chartfox OAuth Response</h1>
+        <p id="resultTxt">Pending...</p>
+        <p id="codeTxt"></p>
+    </body>
+    <script type="application/javascript">
+        let query = new URLSearchParams(document.location.search);
+        let code = query.get("code");
+        if (code === null) {
+            resultTxt.innerText = "Error";
+        }
+        else {
+            codeTxt.innerText = code;
+            resultTxt.innerText = "sending...";
+            fetch("/json/chartfox/oauth/code", {
+                "method": "POST",
+                "headers": {
+                    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+                },
+                "body": JSON.stringify({"value": code}) + "&",
+            }).then(
+                function (rp) {
+                    resultTxt.innerText = "success!";
+                    // window.close();
+                },
+                function (err) {
+                    resultTxt.innerText = "Error: " + err;
+                    console.log(err);
+                },
+            );
+        }
+    </script>
+</html>

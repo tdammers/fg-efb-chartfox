@@ -73,13 +73,10 @@ var ChartfoxApp = {
                     debug.dump(errs);
                     if (size(errs) > 0) {
                         debug.printerror(errs);
-                        self.showErrorScreen(errs);
-                    }
-                    else {
-                        handleSuccess(r);
+                        onFailure(string.join('; ', errs));
                     }
                 })
-            .fail(onFailure)
+            .fail(func (r) { onFailure(r.reason); })
             .always(func { });
     },
 
@@ -99,9 +96,9 @@ var ChartfoxApp = {
                                         '&response_type=code' ~
                                         '&code_challenge=' ~ urlencode(challenge) ~
                                         '&code_challenge_method=S256' ~
-                                        '&scope=airports:view+charts:index+charts:view' ~
+                                        '&scope=airports:view+charts:index+charts:view+charts:geos+charts:files' ~
                                         '&state=asdf1234' ~
-                                        '&redirect_uri=' ~ urlencode("http://localhost:10000/aircraft-dir/WebPanel/chartfox_oauth.html") ~
+                                        '&redirect_uri=' ~ urlencode("http://localhost:10000/fg-home/Export/efbapps/chartfox/chartfox_oauth.html") ~
                                         '';
             debug.dump('URL', authRequestURL);
             var listener = setlistener(me.authCodeProp, func (val) {
@@ -116,12 +113,12 @@ var ChartfoxApp = {
             me.showHome();
             fgcommand('open-browser', props.Node.new({ "url": authRequestURL }));
         },
-        func(r) {
-            debug.dump("FAILURE", r.status, r.reason);
+        func(reason) {
+            debug.dump("FAILURE", reason);
             self.authStateProp.setIntValue(AUTH_ERROR);
             self.showErrorScreen(
                 [ "Authentication failure:"
-                , r.reason
+                , reason
                 , "Make sure the FG EFB companion is running on " ~ self.companionURL
                 , "See fgfs.log for details."
                 ]);
